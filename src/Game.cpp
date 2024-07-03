@@ -13,7 +13,9 @@ Game::Game() {
 }
 
 
-void Game::Clean(){};
+void Game::Clean(){
+        //    UnloadMusicStream(themeMusic);
+};
 void Game::Render() {
     if (m_Menu) {
         m_Menu->Render();
@@ -27,12 +29,17 @@ void Game::Update() {
     } else {
         player.Update();
     }
-    if (IsKeyDown(KEY_ESCAPE) || WindowShouldClose())
+    if (WindowShouldClose())
         Quit();
+    if (IsKeyDown(KEY_ESCAPE)) {
+        SetMenu<MainMenu>();
+    }
 }
 void Game::Quit() {
     m_running = false;
 }
 void Game::Play() {
     m_Menu = nullptr;
+    //    PauseMusicStream(themeMusic);
+    player.Init();
 }

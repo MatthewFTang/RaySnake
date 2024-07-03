@@ -11,8 +11,8 @@
 struct ApplicationParameters {
     std::string title = "RaySnake";
     bool fullScreen = false;
-    int width = 1200;
-    int height = 600;
+    int width = 1280;
+    int height = 960;
 };
 class Application {
 
@@ -36,6 +36,7 @@ private:
     Game *m_game;
     const ApplicationParameters &params = ApplicationParameters();
     float m_lastFrameTime = 0.0f;
+    Music themeMusic;
 };
 
 

@@ -21,7 +21,9 @@ void Application::Run() {
 void Application::Initialise() {
 
     InitWindow(params.width, params.height, params.title.c_str());
-
+    InitAudioDevice();
+    std::cout << GetMasterVolume() << std::endl;
+    SetExitKey(KEY_NULL);
     if (params.fullScreen) {
         ToggleFullscreen();
     } else {
@@ -31,6 +33,9 @@ void Application::Initialise() {
         SetWindowPosition(xPos, yPos);
     }
     SetTargetFPS(60);
+    themeMusic = LoadMusicStream("res/audio/Theme2.mp3");
+    //    PlayMusicStream(themeMusic);
+
     m_game = new Game();
 }
 void Application::Render() {
@@ -41,9 +46,13 @@ void Application::Render() {
 }
 void Application::Clean() {
     CloseWindow();
+    CloseAudioDevice();
+    m_game->Clean();
 }
 void Application::Loop() {
-
+    if (!IsMusicStreamPlaying(themeMusic)) {
+        PlayMusicStream(themeMusic);
+    }
     while (m_game->GetRunning()) {
         if (GetTime() - m_lastFrameTime > 0.01f) {
             Render();

@@ -32,6 +32,7 @@ public:
 private:
     bool m_running;
     Player player;
+    //    Music themeMusic;
 
     std::shared_ptr<Menu> m_Menu;
 };

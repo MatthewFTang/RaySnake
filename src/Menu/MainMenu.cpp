@@ -8,10 +8,10 @@
 #include <iostream>
 void MainMenu::Render() {
     DrawTexturePro(backgroundTex, backgroundSrc, backgroundDest, Vector2({0, 0}), 0, RAYWHITE);
-    DrawTextEx(font, "RaySnake!", Vector2({100 + 2, 100 + 2}), 32, 1, BLACK);
-    DrawTextEx(font, "RaySnake!", Vector2({100, 100}), 32, 1, WHITE);
-    DrawTextEx(font, "A new version by MFT", Vector2({100 + 2, 150 + 2}), 32, 1, BLACK);
-    DrawTextEx(font, "A new version by MFT", Vector2({100, 150}), 32, 1, WHITE);
+    DrawTextEx(font, "RaySnake!", Vector2({170 + 2, 100 + 2}), 32, 1, BLACK);
+    DrawTextEx(font, "RaySnake!", Vector2({170, 100}), 32, 1, WHITE);
+    DrawTextEx(font, "A new version by MFT", Vector2({170 + 2, 150 + 2}), 32, 1, BLACK);
+    DrawTextEx(font, "A new version by MFT", Vector2({170, 150}), 32, 1, WHITE);
 
     Color COL;
     for (size_t i = 0; i < m_Options.size(); i++) {
@@ -19,7 +19,7 @@ void MainMenu::Render() {
             COL = WHITE;
         } else
             COL = RED;
-        auto pos = Vector2{100, 400 + ((float) i * 50)};
+        auto pos = Vector2{170, 400 + ((float) i * 50)};
         DrawTextEx(font, m_Options[i], pos, 32, 1, COL);
     }
 }
@@ -40,6 +40,7 @@ void MainMenu::Update() {
         } else if (IsKeyDown(KEY_ENTER)) {
             if (m_currentSelection == 0) {
                 m_game.Play();
+                //                UnloadMusicStream(themeMusic);
             } else if (m_currentSelection == 1) {
                 m_game.SetMenu<AboutMenu>();
             } else if (m_currentSelection == 2) {
@@ -68,4 +69,6 @@ MainMenu::MainMenu(Game &game) : m_game(game) {
     backgroundSrc.x = backgroundDest.x = 0;
     backgroundDest.width = (float) GetRenderWidth();
     backgroundDest.height = (float) GetRenderHeight();
+    //    themeMusic = LoadMusicStream("res/audio/Theme1.mp3");
+    //    PlayMusicStream(themeMusic);
 }
