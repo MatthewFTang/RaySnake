@@ -33,12 +33,22 @@ endif ()
 # Our Project
 
 add_executable(${PROJECT_NAME} main.cpp
-        Application.cpp
-        Application.h
-        Game.cpp
-        Game.h
-        Menu/Menu.h Menu/MainMenu.h Menu/MainMenu.cpp)
+        src/Application.cpp
+        src/Application.h
+        src/Game.cpp
+        src/Game.h
+        src/Menu/Menu.h
+        src/Menu/MainMenu.h
+        src/Menu/MainMenu.cpp
+        src/Menu/AboutMenu.h
+        src/Menu/AboutMenu.cpp
+        src/Menu/Menu.cpp
+        src/Objects/GameObject.h
+        src/Objects/Player.h
+        src/Objects/Food.h src/Objects/Player.cpp)
 target_link_libraries(${PROJECT_NAME} raylib)
+
+
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
 #target_precompile_headers(${PROJECT_NAME} PUBLIC gpch.h)
 

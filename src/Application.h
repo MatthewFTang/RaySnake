@@ -6,7 +6,7 @@
 #define SNAKE_APPLICATION_H
 
 #include "Game.h"
-#include <raylib.h>
+#include "cmake-build-debug/_deps/raylib-src/src/raylib.h"
 #include <string>
 struct ApplicationParameters {
     std::string title = "RaySnake";
@@ -27,6 +27,12 @@ private:
     void Update();
     void Loop();
     void Clean();
+    Color backgroundColor = {
+            249,
+            123,
+            54,
+    };
+
     Game *m_game;
     const ApplicationParameters &params = ApplicationParameters();
     float m_lastFrameTime = 0.0f;

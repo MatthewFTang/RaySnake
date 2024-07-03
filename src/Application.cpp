@@ -35,7 +35,7 @@ void Application::Initialise() {
 }
 void Application::Render() {
     BeginDrawing();
-    ClearBackground(GRAY);
+    ClearBackground(backgroundColor);
     m_game->Render();
     EndDrawing();
 }
@@ -44,8 +44,8 @@ void Application::Clean() {
 }
 void Application::Loop() {
 
-    while (!WindowShouldClose()) {
-        if (GetTime() - m_lastFrameTime > 0.015f) {
+    while (m_game->GetRunning()) {
+        if (GetTime() - m_lastFrameTime > 0.01f) {
             Render();
             Update();
             m_lastFrameTime = GetTime();

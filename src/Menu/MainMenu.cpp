@@ -3,13 +3,13 @@
 //
 
 #include "MainMenu.h"
-
+#include "AboutMenu.h"
+#include "Menu.h"
 #include <iostream>
 void MainMenu::Render() {
     DrawTexturePro(backgroundTex, backgroundSrc, backgroundDest, Vector2({0, 0}), 0, RAYWHITE);
     DrawTextEx(font, "RaySnake!", Vector2({100 + 2, 100 + 2}), 32, 1, BLACK);
     DrawTextEx(font, "RaySnake!", Vector2({100, 100}), 32, 1, WHITE);
-
     DrawTextEx(font, "A new version by MFT", Vector2({100 + 2, 150 + 2}), 32, 1, BLACK);
     DrawTextEx(font, "A new version by MFT", Vector2({100, 150}), 32, 1, WHITE);
 
@@ -19,7 +19,7 @@ void MainMenu::Render() {
             COL = WHITE;
         } else
             COL = RED;
-        Vector2 pos = Vector2{100, 400 + ((float) i * 50)};
+        auto pos = Vector2{100, 400 + ((float) i * 50)};
         DrawTextEx(font, m_Options[i], pos, 32, 1, COL);
     }
 }
@@ -32,13 +32,19 @@ void MainMenu::Update() {
             m_currentSelection++;
         }
 
-        if (IsKeyDown(KEY_UP)) {
+        else if (IsKeyDown(KEY_UP)) {
             lastKey = KEY_UP;
             keyUp = false;
 
             m_currentSelection--;
-        }
-        if (IsKeyDown(KEY_ENTER)) {
+        } else if (IsKeyDown(KEY_ENTER)) {
+            if (m_currentSelection == 0) {
+                m_game.Play();
+            } else if (m_currentSelection == 1) {
+                m_game.SetMenu<AboutMenu>();
+            } else if (m_currentSelection == 2) {
+                m_game.Quit();
+            }
         }
     } else {
         if (IsKeyReleased(lastKey)) {
@@ -49,16 +55,17 @@ void MainMenu::Update() {
 
     m_currentSelection = m_currentSelection % m_NumOptions;
 }
-MainMenu::MainMenu() {
+MainMenu::MainMenu(Game &game) : m_game(game) {
 
 
     font = LoadFontEx("res/fonts/Lato-Bold.ttf", 32, nullptr, 0);
     m_currentSelection = 0;
     backgroundTex = LoadTexture("res/art/background2.png");
-    backgroundSrc.height = backgroundTex.height;
-    backgroundSrc.width = backgroundTex.width;
+
+    backgroundSrc.height = (float) backgroundTex.height;
+    backgroundSrc.width = (float) backgroundTex.width;
     backgroundSrc.y = backgroundDest.y = 0;
     backgroundSrc.x = backgroundDest.x = 0;
-    backgroundDest.width = GetRenderWidth();
-    backgroundDest.height = GetRenderHeight();
+    backgroundDest.width = (float) GetRenderWidth();
+    backgroundDest.height = (float) GetRenderHeight();
 }
