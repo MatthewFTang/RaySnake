@@ -1,8 +1,9 @@
 
 #include "src/Application.h"
-int main(int argc, char *argv[]) {
+int main(void) {
 
     Application app;
     app.Run();
+
     return 0;
 }

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.25)
 project(RaySnake)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -37,23 +37,32 @@ add_executable(${PROJECT_NAME} main.cpp
         src/Application.h
         src/Game.cpp
         src/Game.h
-        src/Menu/Menu.h
-        src/Menu/MainMenu.h
-        src/Menu/MainMenu.cpp
-        src/Menu/AboutMenu.h
         src/Menu/AboutMenu.cpp
+        src/Menu/AboutMenu.h
+        src/Menu/Menu.h
         src/Menu/Menu.cpp
-        src/Objects/GameObject.h
+        src/Menu/MainMenu.cpp
+        src/Menu/MainMenu.h
+        src/Objects/Player.cpp
         src/Objects/Player.h
-        src/Objects/Food.h src/Objects/Player.cpp)
+        src/Objects/GameObject.cpp
+        src/Objects/GameObject.h
+        src/Application.cpp
+        src/Graphics/TextureManger.h
+        src/Graphics/TextureManger.cpp
+        src/BaseParams.h src/LoaderParams.h src/Objects/Food.cpp src/Graphics/FontManger.h src/Graphics/FontManger.cpp)
+
+
+#set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)
-
-
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
 #target_precompile_headers(${PROJECT_NAME} PUBLIC gpch.h)
-
-#target_sources(${PROJECT_NAME} PRIVATE res/app.rc)
-
+# Web Configurations
+if (${PLATFORM} STREQUAL "Web")
+    # Tell Emscripten to build an example.html file.
+    set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
+    target_link_options(${PROJECT_NAME} PUBLIC "-sUSE_GLFW=3")
+endif ()
 
 # Checks if OSX and links appropriate frameworks (Only required on MacOS)
 if (APPLE)

@@ -3,6 +3,7 @@
 //
 
 #include "Application.h"
+
 #include <iostream>
 
 static Application *m_instance = nullptr;
@@ -10,7 +11,7 @@ Application::Application() {
     m_instance = this;
 }
 Application::~Application() {
-    delete m_instance;
+
     m_instance = nullptr;
 }
 void Application::Run() {
@@ -21,8 +22,8 @@ void Application::Run() {
 void Application::Initialise() {
 
     InitWindow(params.width, params.height, params.title.c_str());
-    InitAudioDevice();
-    std::cout << GetMasterVolume() << std::endl;
+    if (!IsAudioDeviceReady())
+        InitAudioDevice();
     SetExitKey(KEY_NULL);
     if (params.fullScreen) {
         ToggleFullscreen();
@@ -32,11 +33,27 @@ void Application::Initialise() {
         int yPos = GetMonitorHeight(monitor) / 2 - params.height / 2;
         SetWindowPosition(xPos, yPos);
     }
+
     SetTargetFPS(60);
-    themeMusic = LoadMusicStream("res/audio/Theme2.mp3");
-    //    PlayMusicStream(themeMusic);
 
     m_game = new Game();
+}
+
+void Application::Clean() {
+    CloseWindow();
+    UnloadMusicStream(themeMusic);
+    CloseAudioDevice();
+    m_game->Clean();
+}
+void Application::Loop() {
+
+    while (m_game->GetRunning()) {
+        if (GetTime() - m_lastFrameTime > 0.001) {
+            Render();
+            Update();
+            m_lastFrameTime = GetTime();
+        }
+    }
 }
 void Application::Render() {
     BeginDrawing();
@@ -44,23 +61,7 @@ void Application::Render() {
     m_game->Render();
     EndDrawing();
 }
-void Application::Clean() {
-    CloseWindow();
-    CloseAudioDevice();
-    m_game->Clean();
-}
-void Application::Loop() {
-    if (!IsMusicStreamPlaying(themeMusic)) {
-        PlayMusicStream(themeMusic);
-    }
-    while (m_game->GetRunning()) {
-        if (GetTime() - m_lastFrameTime > 0.01f) {
-            Render();
-            Update();
-            m_lastFrameTime = GetTime();
-        }
-    }
-}
+
 void Application::Update() {
     m_game->Update();
 }

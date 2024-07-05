@@ -5,14 +5,15 @@
 #ifndef SNAKE_APPLICATION_H
 #define SNAKE_APPLICATION_H
 
+#include <string>
+
 #include "Game.h"
 #include "cmake-build-debug/_deps/raylib-src/src/raylib.h"
-#include <string>
 struct ApplicationParameters {
     std::string title = "RaySnake";
     bool fullScreen = false;
-    int width = 1280;
-    int height = 960;
+    int width = 1440;
+    int height = 1080;
 };
 class Application {
 
@@ -34,8 +35,8 @@ private:
     };
 
     Game *m_game;
-    const ApplicationParameters &params = ApplicationParameters();
-    float m_lastFrameTime = 0.0f;
+    const ApplicationParameters params = ApplicationParameters();
+    double m_lastFrameTime = 0.0;
     Music themeMusic;
 };
 

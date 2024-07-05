@@ -4,41 +4,24 @@
 
 #ifndef RAYSNAKE_PLAYER_H
 #define RAYSNAKE_PLAYER_H
-
-
 #include "GameObject.h"
+#include <raylib.h>
 class Player : public GameObject {
 public:
-    Player();
-    ~Player();
-    void Render() override;
+    using GameObject::GameObject;
+    std::string getGameObjectType() override { return "player"; }
     void Update() override;
-    void Clean() override;
-
-    void Init();
-
-    int getHeight() const { return m_height; }
-    int getWidth() const { return m_width; }
-    Vector2 &getPosition() { return m_position; }
 
 private:
-    void CheckBounds();
-    float GetDirection();
-    void updatePositionParams();
+    Vector2 CheckBounds(Vector2 pos);
 
-
-    Texture2D imageTexture;
-    Vector2 m_position;
-    Vector2 m_lastPosition;
-    float m_currentAngle = 0;
-    float movementSpeed = 3;
-    int m_height;
-    float m_width;
-    int m_numFrames;
-    int m_currentRow;
-    int m_currentFrame;
-    Rectangle textureDest;
-    Rectangle textureSrc;
+    void updatePosition();
+    float m_direction;
+    Vector2 m_PosAccum;
+    float movementSpeed = 8;
+    bool inputThisFrame;
+    float m_currentAngle;
+    float m_currentAngleDeg;
     int frameCounter = 0;
 };
 

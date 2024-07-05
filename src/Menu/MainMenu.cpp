@@ -3,24 +3,31 @@
 //
 
 #include "MainMenu.h"
+
 #include "AboutMenu.h"
 #include "Menu.h"
-#include <iostream>
+#include "src/Graphics/FontManger.h"
+#include "src/Graphics/TextureManger.h"
+
 void MainMenu::Render() {
-    DrawTexturePro(backgroundTex, backgroundSrc, backgroundDest, Vector2({0, 0}), 0, RAYWHITE);
-    DrawTextEx(font, "RaySnake!", Vector2({170 + 2, 100 + 2}), 32, 1, BLACK);
-    DrawTextEx(font, "RaySnake!", Vector2({170, 100}), 32, 1, WHITE);
-    DrawTextEx(font, "A new version by MFT", Vector2({170 + 2, 150 + 2}), 32, 1, BLACK);
-    DrawTextEx(font, "A new version by MFT", Vector2({170, 150}), 32, 1, WHITE);
+    int shadowOffset = 3;
+    int yPos = 145;
+    TextureManger::Instance()->drawImage(imageID);
+    FontManger::Instance()->renderText("RaySnake!", 62, BLACK, yPos + shadowOffset, 100 + shadowOffset);
+    FontManger::Instance()->renderText("RaySnake!", 62, WHITE, yPos, 100);
+    FontManger::Instance()->renderText("A new version by MFT", 48, BLACK, yPos + shadowOffset, 200 + shadowOffset);
+    FontManger::Instance()->renderText("A new version by MFT", 48, WHITE, yPos, 200);
+
 
     Color COL;
-    for (size_t i = 0; i < m_Options.size(); i++) {
+    for (auto i = 0; i < m_Options.size(); i++) {
         if (i == m_currentSelection) {
-            COL = WHITE;
-        } else
             COL = RED;
-        auto pos = Vector2{170, 400 + ((float) i * 50)};
-        DrawTextEx(font, m_Options[i], pos, 32, 1, COL);
+        } else
+            COL = WHITE;
+        FontManger::Instance()->renderText(m_Options[i], 48, BLACK, yPos + shadowOffset, 430 + shadowOffset + (i * 50));
+
+        FontManger::Instance()->renderText(m_Options[i], 48, COL, yPos, 430 + (i * 50));
     }
 }
 void MainMenu::Update() {
@@ -39,8 +46,8 @@ void MainMenu::Update() {
             m_currentSelection--;
         } else if (IsKeyDown(KEY_ENTER)) {
             if (m_currentSelection == 0) {
+                m_game.NewGame();
                 m_game.Play();
-                //                UnloadMusicStream(themeMusic);
             } else if (m_currentSelection == 1) {
                 m_game.SetMenu<AboutMenu>();
             } else if (m_currentSelection == 2) {
@@ -54,21 +61,14 @@ void MainMenu::Update() {
     }
 
 
-    m_currentSelection = m_currentSelection % m_NumOptions;
+    m_currentSelection = positiveModulo(m_currentSelection, m_NumOptions);
 }
 MainMenu::MainMenu(Game &game) : m_game(game) {
 
-
-    font = LoadFontEx("res/fonts/Lato-Bold.ttf", 32, nullptr, 0);
     m_currentSelection = 0;
-    backgroundTex = LoadTexture("res/art/background2.png");
-
-    backgroundSrc.height = (float) backgroundTex.height;
-    backgroundSrc.width = (float) backgroundTex.width;
-    backgroundSrc.y = backgroundDest.y = 0;
-    backgroundSrc.x = backgroundDest.x = 0;
-    backgroundDest.width = (float) GetRenderWidth();
-    backgroundDest.height = (float) GetRenderHeight();
-    //    themeMusic = LoadMusicStream("res/audio/Theme1.mp3");
-    //    PlayMusicStream(themeMusic);
+    imageID = "mainMenu";
+    TextureManger::Instance()->loadTexture("res/art/background2.png", imageID);
+}
+int MainMenu::positiveModulo(int i, int n) {
+    return (i % n + n) % n;
 }
