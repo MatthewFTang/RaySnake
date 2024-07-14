@@ -110,9 +110,10 @@ void Game::AddFruit() {
     auto foodParams = LoaderParams(p.filePath, p.x, p.y, p.SpriteWidth, p.SpriteHeight, "food", p.numFrames, p.animationSpeed, p.destWidth, p.destHeight, p.ItemsPerRow);
     m_gameObjects.push_back(new Food(foodParams));
 }
-void Game::ShowScore() {
-    char str[50];
-    std::sprintf(str, "Score \n %d", m_score);
-    FontManger::Instance()->renderText(str, 48, BLACK, GetRenderWidth() - 150 + 3, 50 + 3);
-    FontManger::Instance()->renderText(str, 48, WHITE, GetRenderWidth() - 150, 50);
+void Game::ShowScore() const {
+
+    std::string numS= std::to_string(m_score);
+    std::string text = "Score /n" +numS;
+    FontManger::Instance()->renderText(text.c_str(), 48, BLACK, GetRenderWidth() - 150 + 3, 50 + 3);
+    FontManger::Instance()->renderText(text.c_str(), 48, WHITE, GetRenderWidth() - 150, 50);
 }

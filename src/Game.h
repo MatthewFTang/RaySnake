@@ -46,7 +46,7 @@ private:
     std::vector<GameObject *> m_gameObjects;
     void AddFruit();
     void AddPlayer();
-    void ShowScore();
+    void ShowScore() const;
 };
 
 

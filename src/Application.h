@@ -12,8 +12,8 @@
 struct ApplicationParameters {
     std::string title = "RaySnake";
     bool fullScreen = false;
-    int width = 1440;
-    int height = 1080;
+    int width = 1080;
+    int height = 810;
 };
 class Application {
 

@@ -17,7 +17,7 @@ void TextureManger::loadTexture(std::string const &fileName, std::string const &
             std::cout << "TextureManger :: File (" << fileName << ") does not exist" << std::endl;
     }
 }
-void TextureManger::drawImage(std::string &id) {
+void TextureManger::drawImage(std::string    &id) {
 
     Rectangle srcRect;
     Rectangle destRect;
@@ -31,9 +31,10 @@ void TextureManger::drawImage(std::string &id) {
     DrawTexturePro(textureMap[id], srcRect, destRect, {0, 0}, 0, WHITE);
 }
 void TextureManger::Clean() {
-    for (const auto &[id, text]: textureMap) {
-        UnLoadTextures(id);
+    for ( auto const &[id, text]: textureMap) {
+        UnloadTexture(text);
     }
+    textureMap.clear();
 }
 void TextureManger::drawFrame(const std::string &id, float xOffset, float yOffset,
                               int width, int height, int itemsPerRow,

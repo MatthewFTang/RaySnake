@@ -25,8 +25,7 @@ public:
     }
 
     void loadTexture(std::string const &fileName, std::string const &id);
-    void UnLoadTextures(std::string id) { textureMap.erase(id); }
-    void drawImage(std::string &id);
+   void drawImage(std::string &id);
     void drawFrame(const std::string &id, float xOffset, float yOffset,
                    int width, int height, int itemsPerRow,
                    int currentFrame, float rotation, int destHeight, int destWidth);
