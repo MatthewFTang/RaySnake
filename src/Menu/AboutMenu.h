@@ -11,13 +11,13 @@
 class Game;
 class AboutMenu : public Menu {
 public:
-    AboutMenu(Game &game);
+    explicit AboutMenu(Game &game);
     void Render() override;
     void Update() override;
 
 private:
-    Game &m_game;
-    std::string textureID;
+    Game &game_;
+    std::string texture_id_;
 };
 
 

@@ -4,16 +4,10 @@
 
 #include "Application.h"
 
-#include <iostream>
 
-static Application *m_instance = nullptr;
-Application::Application() {
-    m_instance = this;
-}
-Application::~Application() {
+Application *Application::s_instance_ = nullptr;
 
-    m_instance = nullptr;
-}
+
 void Application::Run() {
     Initialise();
     Loop();
@@ -21,47 +15,47 @@ void Application::Run() {
 }
 void Application::Initialise() {
 
-    InitWindow(params.width, params.height, params.title.c_str());
+    InitWindow(params_.width, params_.height, params_.title.c_str());
     if (!IsAudioDeviceReady())
         InitAudioDevice();
     SetExitKey(KEY_NULL);
-    if (params.fullScreen) {
+    if (params_.full_screen) {
         ToggleFullscreen();
     } else {
         int monitor = GetCurrentMonitor();
-        int xPos = GetMonitorWidth(monitor) / 2 - params.width / 2;
-        int yPos = GetMonitorHeight(monitor) / 2 - params.height / 2;
-        SetWindowPosition(xPos, yPos);
+        int x_pos = GetMonitorWidth(monitor) / 2 - params_.width / 2;
+        int y_pos = GetMonitorHeight(monitor) / 2 - params_.height / 2;
+        SetWindowPosition(x_pos, y_pos);
     }
 
     SetTargetFPS(60);
 
-    m_game = new Game();
+    game_ = new Game();
 }
 
-void Application::Clean() {
-    CloseWindow();
-    UnloadMusicStream(themeMusic);
-    CloseAudioDevice();
-    m_game->Clean();
-}
+
 void Application::Loop() {
 
-    while (m_game->GetRunning()) {
-        if (GetTime() - m_lastFrameTime > 0.001) {
+    while (game_->GetRunning()) {
+        if (GetTime() - last_frame_time_ > 0.001) {
             Render();
             Update();
-            m_lastFrameTime = GetTime();
+            last_frame_time_ = GetTime();
         }
     }
 }
+void Application::Clean() const {
+    CloseWindow();
+    CloseAudioDevice();
+    game_->Clean();
+}
 void Application::Render() {
     BeginDrawing();
-    ClearBackground(backgroundColor);
-    m_game->Render();
+    ClearBackground(background_color_);
+    game_->Render();
     EndDrawing();
 }
 
 void Application::Update() {
-    m_game->Update();
+    game_->Update();
 }

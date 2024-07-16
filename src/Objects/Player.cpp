@@ -7,68 +7,55 @@
 #include <raymath.h>
 
 #include <cmath>
-#include <iostream>
 
 
 void Player::Update() {
 
 
     if (IsKeyDown(KEY_DOWN)) {
-        m_PosAccum.y += 1.0f;
-        inputThisFrame = true;
+        pos_accum_.y += 1.0f;
+        input_this_frame_ = true;
     }
 
     if (IsKeyDown(KEY_UP)) {
-        m_PosAccum.y -= 1.0f;
-        inputThisFrame = true;
+        pos_accum_.y -= 1.0f;
+        input_this_frame_ = true;
     }
     if (IsKeyDown(KEY_LEFT)) {
-        m_PosAccum.x -= 1.0f;
-        inputThisFrame = true;
+        pos_accum_.x -= 1.0f;
+        input_this_frame_ = true;
     }
     if (IsKeyDown(KEY_RIGHT)) {
-        m_PosAccum.x += 1.0f;
-        inputThisFrame = true;
+        pos_accum_.x += 1.0f;
+        input_this_frame_ = true;
     }
-    frameCounter++;
-    updatePosition();
-    int curFrame = getCurrentFrame();
-    if (frameCounter == getAnimationSpeed()) {
-        frameCounter = 0;
-        curFrame++;
-        if (curFrame == getNumFrames()) curFrame = 0;
-        setCurrentFrame(curFrame);
+    frame_counter_++;
+    UpdatePosition();
+    int cur_frame = GetCurrentFrame();
+    if (frame_counter_ == GetAnimationSpeed()) {
+        frame_counter_ = 0;
+        cur_frame++;
+        if (cur_frame == GetNumFrames()) cur_frame = 0;
+        SetCurrentFrame(cur_frame);
     }
 }
-void Player::updatePosition() {
+void Player::UpdatePosition() {
 
-    if (inputThisFrame) {
-        m_currentAngle = atan2(m_PosAccum.y, m_PosAccum.x);
-        m_currentAngleDeg = m_currentAngle * 180 / PI;
-        m_currentAngleDeg = Wrap(m_currentAngleDeg, 0, 360);
-        setRotation(m_currentAngleDeg);
+    if (input_this_frame_) {
+        current_angle_ = atan2(pos_accum_.y, pos_accum_.x);
+        current_angle_deg_ = current_angle_ * 180 / PI;
+        current_angle_deg_ = Wrap(current_angle_deg_, 0, 360);
+        SetRotation(current_angle_deg_);
     }
-    inputThisFrame = false;
+    input_this_frame_ = false;
 
-    float dx = movementSpeed * std::cos(m_currentAngle);
-    float dy = movementSpeed * std::sin(m_currentAngle);
+    float dx = movement_speed_ * std::cos(current_angle_);
+    float dy = movement_speed_ * std::sin(current_angle_);
 
-    m_PosAccum.x = m_PosAccum.y = 0.0f;
-    Vector2 pos = getPosition();
+    pos_accum_.x = pos_accum_.y = 0.0f;
+    Vector2 pos = GetPosition();
     pos.x += dx;
     pos.y += dy;
 
-    //    pos = CheckBounds(pos);
-    setPosition(pos);
-}
-
-
-Vector2 Player::CheckBounds(Vector2 pos) {
-    int width = getWidth();
-    int height = getHeight();
-    if (pos.x < width) pos.x = width;
-    if (pos.y < height) pos.y = height;
-    if (pos.x > (float) GetRenderWidth() - width) pos.x = (float) GetRenderWidth() - width;
-    if (pos.y > (float) GetRenderHeight() - height) pos.x = (float) GetRenderHeight() - height;
-    return pos;
+    SetPosition(pos);
 }

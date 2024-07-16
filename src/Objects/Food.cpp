@@ -5,12 +5,12 @@
 #include "Food.h"
 
 void Food::Update() {
-    if (m_frameCount == getAnimationSpeed()) {
-        int frame = getCurrentFrame();
+    if (m_frame_count_ == GetAnimationSpeed()) {
+        int frame = GetCurrentFrame();
         frame++;
-        if (frame == getNumFrames()) frame = 0;
-        setCurrentFrame(frame);
-        m_frameCount = 0;
+        if (frame == GetNumFrames()) frame = 0;
+        SetCurrentFrame(frame);
+        m_frame_count_ = 0;
     }
-    m_frameCount++;
+    m_frame_count_++;
 }

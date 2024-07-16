@@ -2,28 +2,26 @@
 // Created by Matt on 3/07/2024.
 //
 
-#ifndef RAYSNAKE_PLAYER_H
-#define RAYSNAKE_PLAYER_H
-#include "GameObject.h"
+#ifndef RAYSNAKE_SRC_OBJECTS_PLAYER_H_
+#define RAYSNAKE_SRC_OBJECTS_PLAYER_H_
 #include <raylib.h>
+
+#include "GameObject.h"
 class Player : public GameObject {
 public:
     using GameObject::GameObject;
-    std::string getGameObjectType() override { return "player"; }
+    std::string GetGameObjectType() override { return "player"; }
     void Update() override;
 
 private:
-    Vector2 CheckBounds(Vector2 pos);
-
-    void updatePosition();
-    float m_direction;
-    Vector2 m_PosAccum;
-    float movementSpeed = 8;
-    bool inputThisFrame;
-    float m_currentAngle;
-    float m_currentAngleDeg;
-    int frameCounter = 0;
+    void UpdatePosition();
+    Vector2 pos_accum_;
+    float movement_speed_ = 8;
+    bool input_this_frame_;
+    float current_angle_;
+    float current_angle_deg_;
+    int frame_counter_ = 0;
 };
 
 
-#endif//RAYSNAKE_PLAYER_H
+#endif//RAYSNAKE_SRC_OBJECTS_PLAYER_H_

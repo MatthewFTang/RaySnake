@@ -11,6 +11,7 @@
 #include <memory>
 #include <vector>
 
+#include "Level.h"
 #include "Menu/Menu.h"
 #include "src/Objects/GameObject.h"
 
@@ -19,34 +20,25 @@ public:
     Game();
     ~Game() = default;
 
-
     void Clean() const;
     void Render();
     void Update();
     void Play();
     void Quit();
-    [[nodiscard]] bool GetRunning() const { return m_running; }
+    [[nodiscard]] bool GetRunning() const { return running_; }
 
     template<typename T>
     void SetMenu() {
-        m_Menu = std::make_shared<T>(*this);
+        menu_ = std::make_shared<T>(*this);
     }
     void NewGame();
 
 
 private:
-    void checkCollision();
-    bool m_running;
-    int m_score;
+    bool running_;
+    Level level_;
 
-    std::shared_ptr<Menu> m_Menu;
-    Music backgroundMusic{};
-    Music themeMusic{};
-    Sound eatSound;
-    std::vector<GameObject *> m_gameObjects;
-    void AddFruit();
-    void AddPlayer();
-    void ShowScore() const;
+    std::shared_ptr<Menu> menu_;
 };
 
 

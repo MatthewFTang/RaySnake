@@ -6,69 +6,66 @@
 
 #include "AboutMenu.h"
 #include "Menu.h"
-#include "src/Graphics/FontManger.h"
-#include "src/Graphics/TextureManger.h"
+#include "src/Managers/FontManger.h"
+#include "src/Managers/TextureManger.h"
 
 void MainMenu::Render() {
-    int shadowOffset = 3;
-    int yPos = 145;
-    TextureManger::Instance()->drawImage(imageID);
-    FontManger::Instance()->renderText("RaySnake!", 62, BLACK, yPos + shadowOffset, 100 + shadowOffset);
-    FontManger::Instance()->renderText("RaySnake!", 62, WHITE, yPos, 100);
-    FontManger::Instance()->renderText("A new version by MFT", 48, BLACK, yPos + shadowOffset, 200 + shadowOffset);
-    FontManger::Instance()->renderText("A new version by MFT", 48, WHITE, yPos, 200);
+
+    int x_pos = 145;
+    TextureManger::Instance()->DrawImage(image_id_);
+    FontManger::Instance()->RenderText("RaySnake!", 62, WHITE, x_pos, 100);
+    FontManger::Instance()->RenderText("A new version by MFT", 48, WHITE, x_pos, 200);
 
 
     Color COL;
-    for (auto i = 0; i < m_Options.size(); i++) {
-        if (i == m_currentSelection) {
+    for (auto i = 0; i < options_.size(); i++) {
+        if (i == current_selection_) {
             COL = RED;
         } else
             COL = WHITE;
-        FontManger::Instance()->renderText(m_Options[i], 48, BLACK, yPos + shadowOffset, 430 + shadowOffset + (i * 50));
 
-        FontManger::Instance()->renderText(m_Options[i], 48, COL, yPos, 430 + (i * 50));
+        FontManger::Instance()->RenderText(options_[i], 48, COL, x_pos, 550 + (i * 50));
     }
 }
 void MainMenu::Update() {
-    if (keyUp) {
+    if (key_up_) {
         if (IsKeyDown(KEY_DOWN)) {
-            lastKey = KEY_DOWN;
-            keyUp = false;
+            last_key_ = KEY_DOWN;
+            key_up_ = false;
 
-            m_currentSelection++;
+            current_selection_++;
         }
 
         else if (IsKeyDown(KEY_UP)) {
-            lastKey = KEY_UP;
-            keyUp = false;
+            last_key_ = KEY_UP;
+            key_up_ = false;
 
-            m_currentSelection--;
+            current_selection_--;
         } else if (IsKeyDown(KEY_ENTER)) {
-            if (m_currentSelection == 0) {
-                m_game.NewGame();
-                m_game.Play();
-            } else if (m_currentSelection == 1) {
-                m_game.SetMenu<AboutMenu>();
-            } else if (m_currentSelection == 2) {
-                m_game.Quit();
+            if (current_selection_ == 0) {
+                game_.NewGame();
+                game_.Play();
+            } else if (current_selection_ == 1) {
+                game_.SetMenu<AboutMenu>();
+            } else if (current_selection_ == 2) {
+                game_.Quit();
             }
         }
     } else {
-        if (IsKeyReleased(lastKey)) {
-            keyUp = true;
+        if (IsKeyReleased(last_key_)) {
+            key_up_ = true;
         }
     }
 
 
-    m_currentSelection = positiveModulo(m_currentSelection, m_NumOptions);
+    current_selection_ = PositiveModulo(current_selection_, num_options_);
 }
-MainMenu::MainMenu(Game &game) : m_game(game) {
+MainMenu::MainMenu(Game &game) : game_(game) {
 
-    m_currentSelection = 0;
-    imageID = "mainMenu";
-    TextureManger::Instance()->loadTexture("res/art/background2.png", imageID);
+    current_selection_ = 0;
+    image_id_ = "mainMenu";
+    TextureManger::Instance()->LoadText("res/art/background2.png", image_id_);
 }
-int MainMenu::positiveModulo(int i, int n) {
+int MainMenu::PositiveModulo(int i, int n) {
     return (i % n + n) % n;
 }

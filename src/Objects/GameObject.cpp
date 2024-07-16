@@ -4,37 +4,38 @@
 
 #include "GameObject.h"
 
-#include "src/Graphics/TextureManger.h"
+#include "src/Managers/TextureManger.h"
 
 void GameObject::Render() {
-    TextureManger::Instance()->drawFrame(m_textureID, m_position.x, m_position.y, m_width, m_height, m_itemsPerRow, m_currentFrame, m_rotation, m_destHeight, m_destWidth);
+    TextureManger::Instance()->DrawFrame(texture_id_, position_.x, position_.y, width_, height_, items_per_row_, current_frame_, rotation_, dest_height_, dest_width_);
 }
 
 void GameObject::Clean() {
-    TextureManger::Instance()->UnLoadTextures(m_textureID);
+
+    TextureManger::Instance()->DeleteTexture(texture_id_);
 }
 GameObject::GameObject(LoaderParams const &params) {
-    m_position = {(float) params.getX(), (float) params.getY()};
-    m_velocity = {0.0f, 0.0f};
-    m_acceleration = {0.0f, 0.0f};
-    m_textureID = params.getTextureID();
-    m_frameCount = 0;
-    m_width = params.getWidth();
-    m_height = params.getHeight();
-    m_numFrames = params.getNumFrames();
-    m_destHeight = params.getDestHeight();
-    m_destWidth = params.getDestWidth();
-    m_animationSpeed = params.getAnimateSpeed();
-    m_currentFrame = 0;
-    m_itemsPerRow = params.getItemsPerRow();
-    m_rotation = 0.0f;
-    m_boundingBox.height = m_destHeight;
-    m_boundingBox.width = m_destWidth;
-    TextureManger::Instance()->loadTexture(params.getFilePath(), m_textureID);
+    position_ = {(float) params.GetX(), (float) params.GetY()};
+    velocity_ = {0.0f, 0.0f};
+    acceleration_ = {0.0f, 0.0f};
+    texture_id_ = params.GetTextureId();
+    frame_count_ = 0;
+    width_ = params.GetWidth();
+    height_ = params.GetHeight();
+    num_frames_ = params.GetNumFrames();
+    dest_height_ = params.GetDestHeight();
+    dest_width_ = params.GetDestWidth();
+    animation_speed_ = params.GetAnimateSpeed();
+    current_frame_ = 0;
+    items_per_row_ = params.GetItemsPerRow();
+    rotation_ = 0.0f;
+    bounding_box_.height = (float) dest_height_;
+    bounding_box_.width = (float) dest_width_;
+    TextureManger::Instance()->LoadText(params.GetFilePath(), texture_id_);
 }
-GameObject::GameObject() {}
-Rectangle GameObject::getBoundingBox() {
-    m_boundingBox.x = m_position.x;
-    m_boundingBox.y = m_position.y;
-    return m_boundingBox;
+
+Rectangle GameObject::GetBoundingBox() {
+    bounding_box_.x = position_.x;
+    bounding_box_.y = position_.y;
+    return bounding_box_;
 }

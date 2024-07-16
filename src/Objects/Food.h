@@ -4,17 +4,18 @@
 
 #ifndef RAYSNAKE_FOOD_H
 #define RAYSNAKE_FOOD_H
-#include "GameObject.h"
 #include <raylib.h>
+
+#include "GameObject.h"
 
 class Food : public GameObject {
 public:
     using GameObject::GameObject;
-    std::string getGameObjectType() override { return "Food"; }
+    std::string GetGameObjectType() override { return "Food"; }
     void Update() override;
 
 private:
-    int m_frameCount = 0;
+    int m_frame_count_ = 0;
 };
 
 

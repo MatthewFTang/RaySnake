@@ -2,8 +2,8 @@
 // Created by Matt on 2/07/2024.
 //
 
-#ifndef RAYSNAKE_MENU_H
-#define RAYSNAKE_MENU_H
+#ifndef RAYSNAKE_SRC_MENU_MENU_H_
+#define RAYSNAKE_SRC_MENU_MENU_H_
 #include <raylib.h>
 
 class Menu {
@@ -14,4 +14,4 @@ public:
 };
 
 
-#endif//RAYSNAKE_MENU_H
+#endif//RAYSNAKE_SRC_MENU_MENU_H_

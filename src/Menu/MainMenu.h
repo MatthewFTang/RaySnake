@@ -19,15 +19,16 @@ public:
     explicit MainMenu(Game &game);
 
 private:
-    std::vector<const char *> m_Options = {"Play", "Help", "Exit"};
-    int m_NumOptions = (int) m_Options.size();
+    std::vector<const char *> options_ = {"Play", "About", "Exit"};
+    int num_options_ = (int) options_.size();
 
-    Game &m_game;
-    KeyboardKey lastKey;
-    int m_currentSelection;
-    bool keyUp = true;
-    std::string imageID;
-    int positiveModulo(int i, int n);
+    Game &game_;
+    KeyboardKey last_key_;
+    int current_selection_;
+    bool key_up_ = true;
+    std::string image_id_;
+    
+    static int PositiveModulo(int i, int n);
 };
 
 

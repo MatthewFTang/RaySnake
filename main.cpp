@@ -1,9 +1,6 @@
 
 #include "src/Application.h"
-int main(void) {
-
-    Application app;
-    app.Run();
-
+int main() {
+    Application::Instance()->Run();
     return 0;
 }
