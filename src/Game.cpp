@@ -1,12 +1,12 @@
 //
 // Created by Matt on 2/07/2024.
 //
-#include "Game.h"
+#include "include/Game.h"
 
-#include "src/Managers/SoundManger.h"
-#include "src/Managers/TextureManger.h"
-#include "src/Menu/MainMenu.h"
-#include "src/Objects/Food.h"
+#include "include/Food.h"
+#include "include/MainMenu.h"
+#include "include/SoundManger.h"
+#include "include/TextureManger.h"
 
 
 Game::Game() {
@@ -14,13 +14,10 @@ Game::Game() {
     SetMenu<MainMenu>();
     SoundManger::Instance()->LoadMusic("res/audio/instrumental.mp3", "background_music");
     SoundManger::Instance()->LoadMusic("res/audio/Theme1.mp3", "theme_music");
-
-    NewGame();
-    running_ = true;
 }
 
 
-void Game::Clean() const {
+void Game::Clean() {
     TextureManger::Instance()->CleanAll();
 };
 void Game::Render() {
@@ -51,6 +48,8 @@ void Game::Quit() {
 }
 void Game::Play() {
     menu_ = nullptr;
+    NewGame();
+    running_ = true;
     SoundManger::Instance()->Pause("theme_music");
     SoundManger::Instance()->Play("background_music");
 }

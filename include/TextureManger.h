@@ -3,10 +3,10 @@
 //
 
 #pragma once
-#include <raylib.h>
-
 #include <map>
 #include <string>
+
+#include "cmake-build-debug/_deps/raylib-src/src/raylib.h"
 
 class TextureManger {
 

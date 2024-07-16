@@ -4,7 +4,7 @@
 
 #ifndef RAYSNAKE_SRC_MENU_MENU_H_
 #define RAYSNAKE_SRC_MENU_MENU_H_
-#include <raylib.h>
+#include "cmake-build-debug/_deps/raylib-src/src/raylib.h"
 
 class Menu {
 public:

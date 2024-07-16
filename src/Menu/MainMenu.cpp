@@ -2,12 +2,12 @@
 // Created by Matt on 2/07/2024.
 //
 
-#include "MainMenu.h"
+#include "include/MainMenu.h"
 
-#include "AboutMenu.h"
-#include "Menu.h"
-#include "src/Managers/FontManger.h"
-#include "src/Managers/TextureManger.h"
+#include "include/AboutMenu.h"
+#include "include/FontManger.h"
+#include "include/Menu.h"
+#include "include/TextureManger.h"
 
 void MainMenu::Render() {
 

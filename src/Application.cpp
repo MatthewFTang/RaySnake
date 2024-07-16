@@ -2,11 +2,10 @@
 // Created by Matt on 2/07/2024.
 //
 
-#include "Application.h"
+#include "include/Application.h"
 
 
-Application *Application::s_instance_ = nullptr;
-
+std::unique_ptr<Application> Application::s_instance_ = nullptr;
 
 void Application::Run() {
     Initialise();
@@ -44,10 +43,15 @@ void Application::Loop() {
         }
     }
 }
-void Application::Clean() const {
+void Application::Clean() {
     CloseWindow();
     CloseAudioDevice();
-    game_->Clean();
+    if (game_) {
+        Game::Clean();
+        delete game_;
+        game_ = nullptr;
+    }
+    Game::Clean();
 }
 void Application::Render() {
     BeginDrawing();

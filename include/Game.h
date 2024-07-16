@@ -2,9 +2,7 @@
 // Created by Matt on 2/07/2024.
 //
 
-#ifndef SNAKE_GAME_H
-#define SNAKE_GAME_H
-
+#pragma once
 
 #include <raylib.h>
 
@@ -12,15 +10,15 @@
 #include <vector>
 
 #include "Level.h"
-#include "Menu/Menu.h"
-#include "src/Objects/GameObject.h"
+#include "include/GameObject.h"
+#include "include/Menu.h"
 
 class Game {
 public:
     Game();
     ~Game() = default;
 
-    void Clean() const;
+    static void Clean();
     void Render();
     void Update();
     void Play();
@@ -40,6 +38,3 @@ private:
 
     std::shared_ptr<Menu> menu_;
 };
-
-
-#endif//SNAKE_GAME_H

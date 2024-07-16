@@ -2,7 +2,7 @@
 // Created by Matt on 15/07/2024.
 //
 
-#include "SoundManger.h"
+#include "include/SoundManger.h"
 
 
 SoundManger *SoundManger::s_instance_ = nullptr;

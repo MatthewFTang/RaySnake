@@ -2,7 +2,7 @@
 // Created by Matt on 5/07/2024.
 //
 
-#include "TextureManger.h"
+#include "include/TextureManger.h"
 
 #include <filesystem>
 #include <iostream>

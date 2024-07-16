@@ -1,16 +1,8 @@
-cmake_minimum_required(VERSION 3.25)
+cmake_minimum_required(VERSION 3.28)
 project(RaySnake)
 
 set(CMAKE_CXX_STANDARD 20)
-#set(CMAKE_EXE_LINKER_FLAGS "-static")
-#set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
-#
-#set(CMAKE_CXX_FLAGS_RELEASE "-O3 -s -mwindows")
-#
-## Generate compile_commands.json
-#set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=leak ")
+
 
 # Dependencies
 set(RAYLIB_VERSION 5.0)
@@ -36,34 +28,34 @@ endif ()
 
 add_executable(${PROJECT_NAME} main.cpp
         src/Application.cpp
-        src/Application.h
+        include/Application.h
         src/Game.cpp
-        src/Game.h
+        include/Game.h
         src/Menu/AboutMenu.cpp
-        src/Menu/AboutMenu.h
-        src/Menu/Menu.h
+        include/AboutMenu.h
+        include/Menu.h
         src/Menu/MainMenu.cpp
-        src/Menu/MainMenu.h
+        include/MainMenu.h
         src/Objects/Player.cpp
-        src/Objects/Player.h
+        include/Player.h
         src/Objects/GameObject.cpp
-        src/Objects/GameObject.h
+        include/GameObject.h
         src/Application.cpp
-        src/Managers/TextureManger.h
+        include/TextureManger.h
         src/Managers/TextureManger.cpp
-        src/BaseParams.h
-        src/LoaderParams.h
+        include/BaseParams.h
+        include/LoaderParams.h
         src/Objects/Food.cpp
-        src/Managers/FontManger.h
+        include/FontManger.h
         src/Managers/FontManger.cpp
-        Level.h Level.cpp
-        src/Managers/SoundManger.h
+        include/Level.h src/Level.cpp
+        include/SoundManger.h
         src/Managers/SoundManger.cpp)
 
 
-#set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
+
 target_sources(${PROJECT_NAME} PRIVATE res/app.rc)
 
 # Web Configurations

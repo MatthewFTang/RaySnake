@@ -8,8 +8,8 @@
 
 #include <vector>
 
+#include "Game.h"
 #include "Menu.h"
-#include "src/Game.h"
 
 class Game;
 class MainMenu : public Menu {
@@ -27,7 +27,7 @@ private:
     int current_selection_;
     bool key_up_ = true;
     std::string image_id_;
-    
+
     static int PositiveModulo(int i, int n);
 };
 

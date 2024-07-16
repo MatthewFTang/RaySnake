@@ -2,8 +2,7 @@
 // Created by Matt on 5/07/2024.
 //
 
-#ifndef RAYSNAKE_BASEPARAMS_H
-#define RAYSNAKE_BASEPARAMS_H
+#pragma once
 #include <string>
 struct PlayerInfo {
     std::string file_path = "res/Assets/Bird.png";
@@ -32,6 +31,3 @@ struct FoodInfo {
     int dest_height = 50;
     int dest_width = 50;
 };
-
-
-#endif//RAYSNAKE_BASEPARAMS_H

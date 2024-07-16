@@ -2,8 +2,7 @@
 // Created by Matt on 3/07/2024.
 //
 
-#ifndef RAYSNAKE_ABOUTMENU_H
-#define RAYSNAKE_ABOUTMENU_H
+#pragma once
 
 #include <string>
 
@@ -19,6 +18,3 @@ private:
     Game &game_;
     std::string texture_id_;
 };
-
-
-#endif//RAYSNAKE_ABOUTMENU_H

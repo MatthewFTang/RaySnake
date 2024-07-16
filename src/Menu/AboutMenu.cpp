@@ -2,12 +2,12 @@
 // Created by Matt on 3/07/2024.
 //
 
-#include "AboutMenu.h"
+#include "include/AboutMenu.h"
 
-#include "src/Game.h"
-#include "src/Managers/FontManger.h"
-#include "src/Managers/TextureManger.h"
-#include "src/Menu/MainMenu.h"
+#include "include/FontManger.h"
+#include "include/Game.h"
+#include "include/MainMenu.h"
+#include "include/TextureManger.h"
 
 AboutMenu::AboutMenu(Game &game) : game_(game) {
 

@@ -2,16 +2,15 @@
 // Created by Matt on 3/07/2024.
 //
 
-#include "GameObject.h"
+#include "include/GameObject.h"
 
-#include "src/Managers/TextureManger.h"
+#include "include/TextureManger.h"
 
 void GameObject::Render() {
     TextureManger::Instance()->DrawFrame(texture_id_, position_.x, position_.y, width_, height_, items_per_row_, current_frame_, rotation_, dest_height_, dest_width_);
 }
 
 void GameObject::Clean() {
-
     TextureManger::Instance()->DeleteTexture(texture_id_);
 }
 GameObject::GameObject(LoaderParams const &params) {

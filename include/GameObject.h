@@ -2,14 +2,11 @@
 // Created by Matt on 3/07/2024.
 //
 
-#ifndef RAYSNAKE_GAMEOBJECT_H
-#define RAYSNAKE_GAMEOBJECT_H
-
-#include <raylib.h>
-
+#pragma once
 #include <string>
 
-#include "src/LoaderParams.h"
+#include "LoaderParams.h"
+#include "cmake-build-debug/_deps/raylib-src/src/raylib.h"
 
 class GameObject {
 
@@ -25,7 +22,6 @@ public:
     virtual std::string GetGameObjectType() = 0;
 
     [[nodiscard]] Vector2 GetPosition() const { return position_; }
-    [[nodiscard]] Vector2 GetVelocity() const { return position_; }
     [[nodiscard]] Vector2 GetAcceleration() const { return acceleration_; }
     [[nodiscard]] int GetWidth() const { return width_; }
     [[nodiscard]] int GetHeight() const { return height_; }
@@ -34,13 +30,17 @@ public:
     [[nodiscard]] int GetCurrentFrame() const { return current_frame_; }
     [[nodiscard]] int GetDestWidth() const { return dest_width_; }
     [[nodiscard]] int GetDestHeight() const { return dest_height_; }
+    std::string GetTextureId() { return &texture_id_[0]; }
+    [[nodiscard]] int GetItemsPerRow() const { return items_per_row_; }
+    [[nodiscard]] float GetRotation() const { return rotation_; }
+    [[nodiscard]] int GetAnimationSpeed() const { return animation_speed_; }
+
     void SetPosition(Vector2 position) { position_ = position; }
     void SetVelocity(Vector2 velocity) { velocity_ = velocity; }
     void SetAcceleration(Vector2 acceleration) { acceleration_ = acceleration; }
     Rectangle GetBoundingBox();
     void SetRotation(float rot) { rotation_ = rot; }
     void SetCurrentFrame(int frame) { current_frame_ = frame; }
-    [[nodiscard]] int GetAnimationSpeed() const { return animation_speed_; }
 
 private:
     Vector2 position_{};
@@ -60,6 +60,3 @@ private:
     int animation_speed_;
     std::string texture_id_;
 };
-
-
-#endif//RAYSNAKE_GAMEOBJECT_H

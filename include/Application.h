@@ -7,6 +7,7 @@
 
 #include <raylib.h>
 
+#include <memory>
 #include <string>
 
 #include "Game.h"
@@ -14,19 +15,19 @@
 struct ApplicationParameters {
     std::string title = "RaySnake";
     bool full_screen = false;
-    int width = 1080;
-    int height = 810;
+    int width = 1000;
+    int height = 800;
 };
 
 class Application {
 
 public:
-    static Application *s_instance_;
+    static std::unique_ptr<Application> s_instance_;
     static Application *Instance() {
-        if (s_instance_ == nullptr) {
-            s_instance_ = new Application();
+        if (!s_instance_) {
+            s_instance_ = std::unique_ptr<Application>(new Application());
         }
-        return s_instance_;
+        return s_instance_.get();
     }
 
     ~Application() = default;
@@ -39,7 +40,7 @@ private:
     void Render();
     void Update();
     void Loop();
-    void Clean() const;
+    void Clean();
 
     Color background_color_ = {
             249,
@@ -47,7 +48,7 @@ private:
             54,
     };
 
-    Game *game_;
+    Game *game_ = nullptr;
     const ApplicationParameters params_ = ApplicationParameters();
     double last_frame_time_ = 0.0;
 };

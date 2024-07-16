@@ -2,15 +2,14 @@
 // Created by Matt on 5/07/2024.
 //
 
-#include "FontManger.h"
+#include "include/FontManger.h"
 FontManger *FontManger::s_instance_ = nullptr;
 
 void FontManger::RenderText(const char *text, int font_size, Color col, int pos_x, int pos_y, bool centered) {
 
-    if (!font_map_.contains(font_size)) {
-
+    if (!font_map_.contains(font_size))
         font_map_[font_size] = LoadFontEx("res/fonts/Lato-Bold.ttf", font_size, nullptr, 0);
-    }
+
     Vector2 pos{(float) pos_x, (float) pos_y};
 
     if (centered) {
@@ -20,10 +19,9 @@ void FontManger::RenderText(const char *text, int font_size, Color col, int pos_
     }
 
     Vector2 pos_shadow = pos;
-    pos_shadow.y += 3;
+    pos_shadow.x += 2;
+    pos_shadow.y += 2;
     SetTextLineSpacing(font_size);
-
-
     DrawTextEx(font_map_[font_size], text, pos_shadow, (float) font_size, 0, BLACK);
     DrawTextEx(font_map_[font_size], text, pos, (float) font_size, 0, col);
 }
