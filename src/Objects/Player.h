@@ -3,11 +3,11 @@
 //
 
 #pragma once
-#include <raylib.h>
-
+#include <iostream>
 #include <vector>
 
 #include "GameObject.h"
+#include "cmake-build-debug/_deps/raylib-src/src/raylib.h"
 
 class Player : public GameObject {
 public:
@@ -19,6 +19,9 @@ public:
     [[nodiscard]] bool HitTail() const { return is_dead_; }
     void IncrementTail();
     Vector2 NewFruitLocation(int width_max, int height_max);
+    void SetMovementSpeed(float speed) {
+        movement_speed_ = speed;
+    }
 
 private:
     void UpdatePosition();
@@ -31,7 +34,7 @@ private:
 
     Vector2 pos_accum_;
     bool is_dead_ = false;
-    float movement_speed_ = 8;
+    float movement_speed_;
     bool input_this_frame_;
     float current_angle_;
     float current_angle_deg_;

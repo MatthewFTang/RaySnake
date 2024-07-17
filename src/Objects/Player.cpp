@@ -2,14 +2,14 @@
 // Created by Matt on 3/07/2024.
 //
 
-#include "include/Player.h"
+#include "Player.h"
 
 #include <raymath.h>
 
 #include <cmath>
 #include <iostream>
 
-#include "include/TextureManger.h"
+#include "src/Managers/TextureManger.h"
 
 
 void Player::Update() {

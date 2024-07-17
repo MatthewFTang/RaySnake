@@ -5,8 +5,8 @@
 #pragma once
 #include <string>
 
-#include "LoaderParams.h"
 #include "cmake-build-debug/_deps/raylib-src/src/raylib.h"
+#include "src/Core/LoaderParams.h"
 
 class GameObject {
 

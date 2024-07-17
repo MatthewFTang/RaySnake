@@ -4,11 +4,11 @@
 
 #pragma once
 
-#include <raylib.h>
-
 #include <map>
 #include <string>
 #include <variant>
+
+#include "cmake-build-debug/_deps/raylib-src/src/raylib.h"
 
 
 enum class SoundType {

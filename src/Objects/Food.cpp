@@ -2,7 +2,7 @@
 // Created by Matt on 3/07/2024.
 //
 
-#include "include/Food.h"
+#include "Food.h"
 
 void Food::Update() {
     if (m_frame_count_ == GetAnimationSpeed()) {

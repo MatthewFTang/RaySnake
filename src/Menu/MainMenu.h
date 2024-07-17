@@ -2,14 +2,11 @@
 // Created by Matt on 2/07/2024.
 //
 
-#ifndef RAYSNAKE_MAINMENU_H
-#define RAYSNAKE_MAINMENU_H
-
-
+#pragma once
 #include <vector>
 
-#include "Game.h"
 #include "Menu.h"
+#include "src/Core/Game.h"
 
 class Game;
 class MainMenu : public Menu {
@@ -30,6 +27,3 @@ private:
 
     static int PositiveModulo(int i, int n);
 };
-
-
-#endif//RAYSNAKE_MAINMENU_H

@@ -2,9 +2,9 @@
 // Created by Matt on 3/07/2024.
 //
 
-#include "include/GameObject.h"
+#include "GameObject.h"
 
-#include "include/TextureManger.h"
+#include "src/Managers/TextureManger.h"
 
 void GameObject::Render() {
     TextureManger::Instance()->DrawFrame(texture_id_, position_.x, position_.y, width_, height_, items_per_row_, current_frame_, rotation_, dest_height_, dest_width_);

@@ -2,8 +2,7 @@
 // Created by Matt on 2/07/2024.
 //
 
-#include "include/Application.h"
-
+#include "Application.h"
 
 std::unique_ptr<Application> Application::s_instance_ = nullptr;
 

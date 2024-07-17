@@ -2,18 +2,18 @@
 // Created by Matt on 3/07/2024.
 //
 
-#include "include/AboutMenu.h"
+#include "AboutMenu.h"
 
-#include "include/FontManger.h"
-#include "include/Game.h"
-#include "include/MainMenu.h"
-#include "include/TextureManger.h"
+#include "MainMenu.h"
+#include "src/Core/Game.h"
+#include "src/Managers/FontManger.h"
+#include "src/Managers/TextureManger.h"
 
 AboutMenu::AboutMenu(Game &game) : game_(game) {
 
 
     texture_id_ = "aboutMenu";
-    TextureManger::Instance()->LoadText("res/art/HelpMenu.png", texture_id_);
+    TextureManger::Instance()->LoadText("src/resources/art/HelpMenu.png", texture_id_);
 }
 void AboutMenu::Render() {
     TextureManger::Instance()->DrawImage(texture_id_);

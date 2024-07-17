@@ -5,12 +5,11 @@
 #ifndef SNAKE_APPLICATION_H
 #define SNAKE_APPLICATION_H
 
-#include <raylib.h>
-
 #include <memory>
 #include <string>
 
 #include "Game.h"
+#include "cmake-build-debug/_deps/raylib-src/src/raylib.h"
 
 struct ApplicationParameters {
     std::string title = "RaySnake";

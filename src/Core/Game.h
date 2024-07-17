@@ -4,15 +4,15 @@
 
 #pragma once
 
-#include <raylib.h>
-
 #include <memory>
 #include <vector>
 
 #include "Level.h"
-#include "include/GameObject.h"
-#include "include/Menu.h"
+#include "cmake-build-debug/_deps/raylib-src/src/raylib.h"
+#include "src/Menu/Menu.h"
+#include "src/Objects/GameObject.h"
 
+class Level;
 class Game {
 public:
     Game();
@@ -29,12 +29,11 @@ public:
     void SetMenu() {
         menu_ = std::make_shared<T>(*this);
     }
-    void NewGame();
-
+    void NewGame(GameDifficulty difficulty);
 
 private:
     bool running_;
-    Level level_;
+    Level *level_;
 
     std::shared_ptr<Menu> menu_;
 };

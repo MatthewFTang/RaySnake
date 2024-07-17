@@ -3,9 +3,8 @@
 //
 
 #pragma once
-#include <raylib.h>
-
 #include "GameObject.h"
+#include "cmake-build-debug/_deps/raylib-src/src/raylib.h"
 
 class Food : public GameObject {
 public:

@@ -2,13 +2,13 @@
 // Created by Matt on 5/07/2024.
 //
 
-#include "include/FontManger.h"
+#include "FontManger.h"
 FontManger *FontManger::s_instance_ = nullptr;
 
 void FontManger::RenderText(const char *text, int font_size, Color col, int pos_x, int pos_y, bool centered) {
 
     if (!font_map_.contains(font_size))
-        font_map_[font_size] = LoadFontEx("res/fonts/Lato-Bold.ttf", font_size, nullptr, 0);
+        font_map_[font_size] = LoadFontEx("src/resources/fonts/Lato-Bold.ttf", font_size, nullptr, 0);
 
     Vector2 pos{(float) pos_x, (float) pos_y};
 

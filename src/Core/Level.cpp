@@ -2,25 +2,27 @@
 // Created by Matt on 15/07/2024.
 //
 
-#include "include/Level.h"
+#include "Level.h"
 
 #include <raylib.h>
 
+#include <iomanip>
 #include <iostream>
+#include <sstream>
 
-#include "include/BaseParams.h"
-#include "include/FontManger.h"
-#include "include/Food.h"
-#include "include/GameObject.h"
-#include "include/Player.h"
-#include "include/SoundManger.h"
-#include "include/TextureManger.h"
+#include "BaseParams.h"
+#include "src/Managers/FontManger.h"
+#include "src/Managers/SoundManger.h"
+#include "src/Managers/TextureManger.h"
+#include "src/Objects/Food.h"
+#include "src/Objects/GameObject.h"
+#include "src/Objects/Player.h"
 
-Level::Level() {
-    SoundManger::Instance()->LoadSounds("res/audio/short_bite.mp3", "bite");
-    SoundManger::Instance()->LoadSounds("res/audio/esm_8_bit_game_over_1_arcade_80s_simple_alert_notification_game.mp3", "game_over");
+Level::Level(GameDifficulty difficulty) {
+    SoundManger::Instance()->LoadSounds("src/resources/audio/short_bite.mp3", "bite");
+    SoundManger::Instance()->LoadSounds("src/resources/audio/esm_8_bit_game_over_1_arcade_80s_simple_alert_notification_game.mp3", "game_over");
     TextureManger::Instance()
-            ->LoadText("res/assets/Brown.png", "background_tile");
+            ->LoadText("src/resources/assets/Brown.png", "background_tile");
 
 
     float x_max_width = (float) GetRenderWidth() - x_max_;
@@ -30,14 +32,19 @@ Level::Level() {
     float y_max_height = (float) GetRenderHeight() - y_max_;
     n_rows_tiles_ = (int) std::floor(y_max_height / background_size_);
     y_actual_max_ = y_min_ + (float) n_rows_tiles_ * background_size_;
-
+    difficulty_ = difficulty;
+    Reset();
+}
+void Level::Reset() {
     AddPlayer();
     AddFruit();
 
     playing_ = true;
     score_ = 0;
+    start_time_ = GetTime();
 }
-void Level::Render() const {
+
+void Level::Render() {
     DrawBackground();
     ShowScore();
     if (playing_) {
@@ -49,11 +56,16 @@ void Level::Render() const {
 
         FontManger::Instance()->RenderText("Game over!", 48, RED,
                                            (x_min_ + (x_actual_max_ - x_min_) / 2),
-                                           (y_min_ + (y_actual_max_ - y_min_) / 2 - 50), true);
-
+                                           (y_min_ + (y_actual_max_ - y_min_) / 2 - 150), true);
+        FontManger::Instance()->RenderText("Press R to restart ", 32, RED,
+                                           (x_min_ + (x_actual_max_ - x_min_) / 2),
+                                           (y_min_ + (y_actual_max_ - y_min_) / 2), true);
         FontManger::Instance()->RenderText("Press ESCAPE to go to main menu", 32, RED,
                                            (x_min_ + (x_actual_max_ - x_min_) / 2),
                                            (y_min_ + (y_actual_max_ - y_min_) / 2 + 50), true);
+        if (IsKeyDown(KEY_R)) {
+            Reset();
+        }
     }
 }
 void Level::Update() {
@@ -61,8 +73,12 @@ void Level::Update() {
         player_->Update();
         fruit_->Update();
         CheckCollision();
+
+        current_time_ = GetTime() - start_time_;
     }
-    //    Clean();
+    if (score_ > high_score_) {
+        high_score_ = score_;
+    }
 }
 void Level::Clean() {
     delete player_;
@@ -96,6 +112,12 @@ void Level::AddPlayer() {
     PlayerInfo p;
     auto player_params = LoaderParams(p.file_path, p.x, p.y, p.sprite_width, p.sprite_height, "player", p.num_frames, p.animation_speed, p.dest_width, p.dest_height, p.items_per_row);
     player_ = new Player(player_params);
+    if (difficulty_ == GameDifficulty::EASY) {
+        player_->SetMovementSpeed(2.0f);
+    } else if (difficulty_ == GameDifficulty::MEDIUM) {
+        player_->SetMovementSpeed(4.0f);
+    } else
+        player_->SetMovementSpeed(8.0f);
     player_->NewGame();
 }
 
@@ -115,6 +137,17 @@ void Level::ShowScore() const {
     std::string num_s = std::to_string(score_);
     std::string text = "Score \n" + num_s;
     FontManger::Instance()->RenderText(text.c_str(), 48, WHITE, GetRenderWidth() - 150, 50);
+
+    num_s = std::to_string(high_score_);
+    text = "High \nscore \n" + num_s;
+    FontManger::Instance()->RenderText(text.c_str(), 48, WHITE, GetRenderWidth() - 150, 250);
+
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision(2) << current_time_;
+    num_s = stream.str();
+
+    text = "Time \n" + num_s;
+    FontManger::Instance()->RenderText(text.c_str(), 48, WHITE, GetRenderWidth() - 150, 650);
 }
 
 void Level::DrawBackground() const {

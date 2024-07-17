@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.28)
 project(RaySnake)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
 # Dependencies
@@ -25,44 +26,24 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
 endif ()
 
 # Our Project
+add_executable(${PROJECT_NAME}
+        src/Menu/DifficultlyMenu.h
+        src/Core/GameDifficulty.h
+        src/Core/Level.cpp)
+add_subdirectory(src)
 
-add_executable(${PROJECT_NAME} main.cpp
-        src/Application.cpp
-        include/Application.h
-        src/Game.cpp
-        include/Game.h
-        src/Menu/AboutMenu.cpp
-        include/AboutMenu.h
-        include/Menu.h
-        src/Menu/MainMenu.cpp
-        include/MainMenu.h
-        src/Objects/Player.cpp
-        include/Player.h
-        src/Objects/GameObject.cpp
-        include/GameObject.h
-        src/Application.cpp
-        include/TextureManger.h
-        src/Managers/TextureManger.cpp
-        include/BaseParams.h
-        include/LoaderParams.h
-        src/Objects/Food.cpp
-        include/FontManger.h
-        src/Managers/FontManger.cpp
-        include/Level.h src/Level.cpp
-        include/SoundManger.h
-        src/Managers/SoundManger.cpp)
+set_target_properties(${PROJECT_NAME} PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME})
 
-
+# Linking
 target_link_libraries(${PROJECT_NAME} raylib)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
 
-target_sources(${PROJECT_NAME} PRIVATE res/app.rc)
 
 # Web Configurations
 if (${PLATFORM} STREQUAL "Web")
     # Tell Emscripten to build an example.html file.
     set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
-    target_link_options(${PROJECT_NAME} PUBLIC "-sUSE_GLFW=3")
 endif ()
 
 # Checks if OSX and links appropriate frameworks (Only required on MacOS)

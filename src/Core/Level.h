@@ -6,9 +6,11 @@
 
 #include <vector>
 
-#include "Food.h"
-#include "Player.h"
+#include "GameDifficulty.h"
 #include "cmake-build-debug/_deps/raylib-src/src/raylib.h"
+//#include "src/Game.h"
+#include "src/Objects/Food.h"
+#include "src/Objects/Player.h"
 
 class GameObject;
 
@@ -16,14 +18,18 @@ class GameObject;
 class Level {
 
 public:
-    Level();
+    Level(GameDifficulty difficulty);
     ~Level() = default;
-    void Render() const;
+    void Render();
     void Update();
     void Clean();
 
+    void Reset();
+
+
 private:
-    void CheckCollision();
+    void
+    CheckCollision();
 
     void AddFruit();
     void AddPlayer();
@@ -41,11 +47,16 @@ private:
     float y_actual_max_;
     int n_cols_tiles_;
     int n_rows_tiles_;
-    Player *player_;
-    Food *fruit_;
+    int high_score_ = 0;
+    double start_time_;
+    double current_time_;
+    Player *player_{};
+    Food *fruit_{};
+
+    GameDifficulty difficulty_;
 
     int score_;
-    Sound eat_sound_;
+    Sound eat_sound_{};
 
     void NewFruit();
 };
