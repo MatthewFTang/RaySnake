@@ -7,7 +7,6 @@
 #include <raymath.h>
 
 #include <cmath>
-#include <iostream>
 
 #include "src/Managers/TextureManger.h"
 
