@@ -4,10 +4,11 @@
 
 #pragma once
 
+#include <raylib.h>
+
 #include <vector>
 
 #include "GameDifficulty.h"
-#include <raylib.h>
 #include "src/Objects/Food.h"
 #include "src/Objects/Player.h"
 
@@ -17,7 +18,7 @@ class GameObject;
 class Level {
 
 public:
-    Level(GameDifficulty difficulty);
+    explicit Level(GameDifficulty difficulty);
     ~Level() = default;
     void Render();
     void Update();
@@ -55,6 +56,4 @@ private:
 
     int score_;
     Sound eat_sound_{};
-
-    void NewFruit();
 };

@@ -11,9 +11,10 @@
 class GameObject {
 
 public:
+    GameObject() = default;
     explicit GameObject(LoaderParams const &params);
 
-    virtual ~GameObject() = default;
+    ~GameObject() = default;
 
     virtual void Render();
     virtual void Clean();

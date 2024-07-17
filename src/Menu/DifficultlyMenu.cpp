@@ -46,7 +46,6 @@ void DifficultlyMenu::Update() {
                 difficulty = GameDifficulty::HARD;
             }
             game_.NewGame(difficulty);
-
             game_.Play();
         }
     } else {

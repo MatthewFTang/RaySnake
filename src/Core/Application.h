@@ -5,11 +5,12 @@
 #ifndef SNAKE_APPLICATION_H
 #define SNAKE_APPLICATION_H
 
+#include <raylib.h>
+
 #include <memory>
 #include <string>
 
 #include "Game.h"
-#include <raylib.h>
 
 struct ApplicationParameters {
     std::string title = "RaySnake";
@@ -39,12 +40,12 @@ private:
     void Render();
     void Update();
     void Loop();
-    void Clean();
+    static void Clean();
 
     Color background_color_ = {
             249,
             123,
-            54,
+            154,
     };
 
     std::unique_ptr<Game> game_;

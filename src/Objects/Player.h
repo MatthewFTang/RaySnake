@@ -11,8 +11,7 @@
 
 class Player : public GameObject {
 public:
-    ~Player() override =default;
-    using GameObject::GameObject;
+    explicit Player(const LoaderParams& params) : GameObject(params){};
     std::string GetGameObjectType() override { return "player"; }
     void Update() override;
     void Render() override;
@@ -33,8 +32,8 @@ private:
     std::vector<Vector2> tail_positions_;
     std::vector<float> rotation_positions_;
 
-    Vector2 pos_accum_;
-    bool is_dead_ = false;
+    Vector2 pos_accum_{};
+    bool is_dead_;
     float movement_speed_;
     bool input_this_frame_;
     float current_angle_;
