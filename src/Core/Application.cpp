@@ -52,6 +52,7 @@ void Application::Render() {
     BeginDrawing();
     ClearBackground(background_color_);
     game_->Render();
+    PollInputEvents();
     EndDrawing();
 }
 

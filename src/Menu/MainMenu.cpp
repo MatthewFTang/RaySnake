@@ -29,14 +29,14 @@ void MainMenu::Render() {
 }
 void MainMenu::Update() {
     if (key_up_) {
-        if (IsKeyDown(KEY_DOWN)) {
+        if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) {
             last_key_ = KEY_DOWN;
             key_up_ = false;
 
             current_selection_++;
         }
 
-        else if (IsKeyDown(KEY_UP)) {
+        else if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) {
             last_key_ = KEY_UP;
             key_up_ = false;
 

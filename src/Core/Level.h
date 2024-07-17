@@ -42,7 +42,6 @@ private:
     float x_max_ = 200.0f;
     float y_max_ = 40.0f;
     float background_size_ = 50.0f;
-    float border_size_ = 10.0f;
     float x_actual_max_;
     float y_actual_max_;
     int n_cols_tiles_;

@@ -5,7 +5,7 @@
 #pragma once
 #include <string>
 struct PlayerInfo {
-    std::string file_path = "src/resources/Assets/Bird.png";
+    std::string file_path = "src/resources/assets/Bird.png";
     std::string id = "player";
     int animation_speed = 8;
     int x = 200;
@@ -19,7 +19,7 @@ struct PlayerInfo {
 };
 
 struct FoodInfo {
-    std::string file_path = "src/resources/Assets/Apple.png";
+    std::string file_path = "src/resources/assets/Apple.png";
     std::string id = "food";
     int animation_speed = 8;
     int x = 400;
