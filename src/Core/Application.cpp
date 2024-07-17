@@ -23,12 +23,12 @@ void Application::Initialise() {
         int monitor = GetCurrentMonitor();
         int x_pos = GetMonitorWidth(monitor) / 2 - params_.width / 2;
         int y_pos = GetMonitorHeight(monitor) / 2 - params_.height / 2;
+
         SetWindowPosition(x_pos, y_pos);
     }
 
     SetTargetFPS(60);
-
-    game_ = new Game();
+    game_ = std::make_unique<Game>();
 }
 
 
@@ -45,11 +45,7 @@ void Application::Loop() {
 void Application::Clean() {
     CloseWindow();
     CloseAudioDevice();
-    if (game_) {
-        Game::Clean();
-        delete game_;
-        game_ = nullptr;
-    }
+
     Game::Clean();
 }
 void Application::Render() {

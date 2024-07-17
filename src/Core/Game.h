@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "Level.h"
-#include "cmake-build-debug/_deps/raylib-src/src/raylib.h"
+#include <raylib.h>
 #include "src/Menu/Menu.h"
 #include "src/Objects/GameObject.h"
 
@@ -32,8 +32,8 @@ public:
     void NewGame(GameDifficulty difficulty);
 
 private:
-    bool running_;
-    Level *level_;
+    bool running_ =true;
+    std::unique_ptr<Level> level_;
 
     std::shared_ptr<Menu> menu_;
 };

@@ -9,7 +9,7 @@
 #include <string>
 
 #include "Game.h"
-#include "cmake-build-debug/_deps/raylib-src/src/raylib.h"
+#include <raylib.h>
 
 struct ApplicationParameters {
     std::string title = "RaySnake";
@@ -47,7 +47,7 @@ private:
             54,
     };
 
-    Game *game_ = nullptr;
+    std::unique_ptr<Game> game_;
     const ApplicationParameters params_ = ApplicationParameters();
     double last_frame_time_ = 0.0;
 };

@@ -56,5 +56,5 @@ void Game::Play() {
     SoundManger::Instance()->Play("background_music");
 }
 void Game::NewGame(GameDifficulty difficulty) {
-    level_ = new Level(difficulty);
+    level_=std::make_unique<Level>(difficulty);
 }

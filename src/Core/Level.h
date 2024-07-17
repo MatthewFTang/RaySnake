@@ -7,8 +7,7 @@
 #include <vector>
 
 #include "GameDifficulty.h"
-#include "cmake-build-debug/_deps/raylib-src/src/raylib.h"
-//#include "src/Game.h"
+#include <raylib.h>
 #include "src/Objects/Food.h"
 #include "src/Objects/Player.h"
 
@@ -50,9 +49,8 @@ private:
     int high_score_ = 0;
     double start_time_;
     double current_time_;
-    Player *player_{};
-    Food *fruit_{};
-
+    std::unique_ptr<Player> player_;
+    std::unique_ptr<Food> fruit_;
     GameDifficulty difficulty_;
 
     int score_;

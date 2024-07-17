@@ -11,6 +11,7 @@
 
 class Player : public GameObject {
 public:
+    ~Player() override =default;
     using GameObject::GameObject;
     std::string GetGameObjectType() override { return "player"; }
     void Update() override;

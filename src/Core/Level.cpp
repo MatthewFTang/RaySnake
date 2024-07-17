@@ -81,7 +81,10 @@ void Level::Update() {
     }
 }
 void Level::Clean() {
-    delete player_;
+    if (player_ != nullptr)
+    {
+        delete player_;
+    }
     delete fruit_;
 }
 
@@ -111,7 +114,7 @@ void Level::CheckCollision() {
 void Level::AddPlayer() {
     PlayerInfo p;
     auto player_params = LoaderParams(p.file_path, p.x, p.y, p.sprite_width, p.sprite_height, "player", p.num_frames, p.animation_speed, p.dest_width, p.dest_height, p.items_per_row);
-    player_ = new Player(player_params);
+    player_ = std::make_unique<Player>();
     if (difficulty_ == GameDifficulty::EASY) {
         player_->SetMovementSpeed(2.0f);
     } else if (difficulty_ == GameDifficulty::MEDIUM) {
@@ -129,7 +132,7 @@ void Level::AddFruit() {
     p.y = 10 + (int) (y_min_ + new_loc.y);
 
     auto food_params = LoaderParams(p.file_path, p.x, p.y, p.sprite_width, p.sprite_height, "food", p.num_frames, p.animation_speed, p.dest_width, p.dest_height, p.items_per_row);
-    fruit_ = new Food(food_params);
+    fruit_ = std::make_unique<Food>()
 }
 
 void Level::ShowScore() const {
