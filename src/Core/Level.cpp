@@ -6,6 +6,7 @@
 
 #include <raylib.h>
 
+#include <format>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -18,7 +19,7 @@
 #include "src/Objects/GameObject.h"
 #include "src/Objects/Player.h"
 
-Level::Level(GameDifficulty difficulty) {
+Level::Level(GameDifficulty difficulty) : difficulty_(difficulty) {
     SoundManger::Instance()->LoadSounds("src/resources/audio/short_bite.mp3", "bite");
     SoundManger::Instance()->LoadSounds("src/resources/audio/esm_8_bit_game_over_1_arcade_80s_simple_alert_notification_game.mp3", "game_over");
     TextureManger::Instance()
@@ -32,7 +33,6 @@ Level::Level(GameDifficulty difficulty) {
     float y_max_height = (float) GetRenderHeight() - y_max_;
     n_rows_tiles_ = (int) std::floor(y_max_height / background_size_);
     y_actual_max_ = y_min_ + (float) n_rows_tiles_ * background_size_;
-    difficulty_ = difficulty;
     Reset();
 }
 void Level::Reset() {
@@ -54,16 +54,19 @@ void Level::Render() {
     }
 
     if (!playing_) {
+        auto x_pos = (int) (x_min_ + (x_actual_max_ - x_min_) / 2);
+        auto y_pos = (int) (y_min_ + (y_actual_max_ - y_min_) / 2);
 
         FontManger::Instance()->RenderText("Game over!", 48, RED,
-                                           (x_min_ + (x_actual_max_ - x_min_) / 2),
-                                           (y_min_ + (y_actual_max_ - y_min_) / 2 - 150), true);
+                                           x_pos,
+                                           y_pos - 150,
+                                           true);
         FontManger::Instance()->RenderText("Press R to restart ", 32, RED,
-                                           (x_min_ + (x_actual_max_ - x_min_) / 2),
-                                           (y_min_ + (y_actual_max_ - y_min_) / 2), true);
+                                           x_pos,
+                                           y_pos - 100, true);
         FontManger::Instance()->RenderText("Press ESCAPE to go to main menu", 32, RED,
-                                           (x_min_ + (x_actual_max_ - x_min_) / 2),
-                                           (y_min_ + (y_actual_max_ - y_min_) / 2 + 50), true);
+                                           x_pos,
+                                           y_pos + 50, true);
         if (IsKeyDown(KEY_R)) {
             Reset();
         }
@@ -81,8 +84,7 @@ void Level::Update() {
         high_score_ = score_;
     }
 }
-void Level::Clean() {
-}
+
 
 void Level::CheckCollision() {
 
@@ -143,8 +145,7 @@ void Level::ShowScore() const {
     FontManger::Instance()->RenderText(text.c_str(), 48, WHITE, GetRenderWidth() - 150, 250);
 
     std::stringstream stream;
-    stream << std::fixed << std::setprecision(2) << current_time_;
-    num_s = stream.str();
+    num_s = std::format("{:.2f}", current_time_);
 
     text = "Time \n" + num_s;
     FontManger::Instance()->RenderText(text.c_str(), 48, WHITE, GetRenderWidth() - 150, 650);

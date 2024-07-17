@@ -65,25 +65,23 @@ void Player::UpdatePosition() {
 
 void Player::UpdateTail() {
 
-    int number_pos_needed = std::floor(frames_to_jump_back_one_ * (float) current_length_ - 1);
+    auto number_pos_needed = (int) std::floor(frames_to_jump_back_one_ * (float) current_length_ - 1);
     tail_positions_[0] = GetPosition();
 
     auto size_squared = (float) (GetDestWidth() * GetDestWidth());
+
     for (int i = number_pos_needed; i > 0; i--) {
-
         tail_positions_[i] = tail_positions_[i - 1];
-
-
         rotation_positions_[i] = rotation_positions_[i - 1];
     }
     rotation_positions_[0] = GetRotation();
 
 
     for (int i = 0; i < current_length_; i++) {
-        int new_ind = std::floor(frames_to_jump_back_one_ * (float) i);
+        auto new_ind = (int) std::floor(frames_to_jump_back_one_ * (float) i);
         tail_[i] = tail_positions_[new_ind];
         if (i > 1) {
-            float dist = pow(tail_[0].x - tail_[i].x, 2) + pow(tail_[0].y - tail_[i].y, 2);
+            float dist = Vector2DistanceSqr(tail_[0], tail_[i]);
             if (dist < size_squared) {
                 is_dead_ = true;
             }
@@ -140,14 +138,14 @@ void Player::NewGame() {
 Vector2 Player::NewFruitLocation(int width_max, int height_max) {
     auto temp_x = (float) GetRandomValue(0, width_max);
     auto temp_y = (float) GetRandomValue(0, height_max);
-
+    Vector2 temp_vect = {temp_x, temp_y};
     if (current_length_ > 1) {
         auto size_squared = (float) GetDestWidth();
         size_squared *= size_squared;
-        int number_pos_needed = std::floor(frames_to_jump_back_one_ * (float) current_length_ - 1);
+        auto number_pos_needed = (int) std::floor(frames_to_jump_back_one_ * (float) current_length_ - 1);
 
         for (int i = 0; i < number_pos_needed; i++) {
-            float dist = pow(tail_positions_[i].x - temp_x, 2) + pow(tail_positions_[i].y - temp_y, 2);
+            float dist = Vector2DistanceSqr(temp_vect, tail_positions_[i]);
             if (dist < size_squared) {
                 temp_x = (float) GetRandomValue(0, width_max);
                 temp_y = (float) GetRandomValue(0, height_max);

@@ -8,7 +8,8 @@
 
 class Food : public GameObject {
 public:
-    explicit Food(const LoaderParams& params) : GameObject(params){};
+    using GameObject::GameObject;
+    ;
 
     std::string GetGameObjectType() override { return "Food"; }
     void Update() override;

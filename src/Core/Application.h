@@ -27,6 +27,7 @@ public:
         if (!s_instance_) {
             s_instance_ = std::unique_ptr<Application>(new Application());
         }
+
         return s_instance_.get();
     }
 

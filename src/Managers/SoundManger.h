@@ -44,6 +44,6 @@ public:
 
 private:
     SoundManger() = default;
-    std::map<std::string, SoundOrMusic> sound_map_;
-    std::map<std::string, bool> is_playing_;
+    std::unordered_map<std::string, SoundOrMusic> sound_map_;
+    std::unordered_map<std::string, bool> is_playing_;
 };

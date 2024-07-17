@@ -20,28 +20,35 @@ void DifficultlyMenu::Render() {
         FontManger::Instance()->RenderText(options_[i], 48, col, x_pos, y_pos + (i * 50), true);
     }
 }
-void DifficultlyMenu::Update() {
+bool DifficultlyMenu::CheckTime() const {
     double current_time = GetTime();
-    if ((current_time - start_time_ > 0.1) && (current_time - last_key_press_time_ > 0.1)) {
-        if (GetTime() - last_key_press_time_ > 0.1) {
-            if (IsKeyDown(KEY_DOWN)) {
-                last_key_press_time_ = GetTime();
-                current_selection_++;
-            } else if (IsKeyDown(KEY_UP)) {
-                last_key_press_time_ = GetTime();
-                current_selection_--;
-            } else if (IsKeyDown(KEY_ENTER)) {
-                GameDifficulty difficulty;
-                if (current_selection_ == 0) {
-                    difficulty = GameDifficulty::EASY;
-                } else if (current_selection_ == 1) {
-                    difficulty = GameDifficulty::MEDIUM;
-                } else {
-                    difficulty = GameDifficulty::HARD;
-                }
-                game_.NewGame(difficulty);
-                game_.Play();
+    if ((current_time - start_time_ > 0.1) && (current_time - last_key_press_time_ > 0.1))
+        return true;
+    else
+        return false;
+}
+void DifficultlyMenu::Update() {
+
+    if (CheckTime()) {
+
+        if (IsKeyDown(KEY_DOWN)) {
+            last_key_press_time_ = GetTime();
+            current_selection_++;
+        } else if (IsKeyDown(KEY_UP)) {
+            last_key_press_time_ = GetTime();
+            current_selection_--;
+        } else if (IsKeyDown(KEY_ENTER)) {
+            using enum GameDifficulty;
+            GameDifficulty difficulty;
+            if (current_selection_ == 0) {
+                difficulty = EASY;
+            } else if (current_selection_ == 1) {
+                difficulty = MEDIUM;
+            } else {
+                difficulty = HARD;
             }
+            game_.NewGame(difficulty);
+            game_.Play();
         }
     }
 
@@ -52,8 +59,5 @@ int DifficultlyMenu::PositiveModulo(int i, int n) {
     return (i % n + n) % n;
 }
 DifficultlyMenu::DifficultlyMenu(Game &game) : game_(game) {
-
-    current_selection_ = 0;
-
     start_time_ = GetTime();
 }

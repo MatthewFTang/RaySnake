@@ -51,8 +51,7 @@ void MainMenu::Update() {
 }
 MainMenu::MainMenu(Game &game) : game_(game) {
 
-    current_selection_ = 0;
-    image_id_ = "mainMenu";
+
     TextureManger::Instance()->LoadText("src/resources/art/background2.png", image_id_);
 }
 int MainMenu::PositiveModulo(int i, int n) {

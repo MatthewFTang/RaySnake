@@ -49,3 +49,17 @@ void SoundManger::Render() {
         }
     }
 }
+void SoundManger::Clean() {
+
+    for (auto &[kName, kS]: sound_map_) {
+        if (kS.type == SoundType::MUSIC) {
+            Music temp = std::get<Music>(kS.data);
+            UnloadMusicStream(temp);
+        } else if (kS.type == SoundType::SOUND) {
+            Sound temp = std::get<Sound>(kS.data);
+            UnloadSound(temp);
+        }
+    }
+    sound_map_.clear();
+    is_playing_.clear();
+}

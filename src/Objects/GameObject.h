@@ -14,7 +14,7 @@ public:
     GameObject() = default;
     explicit GameObject(LoaderParams const &params);
 
-    ~GameObject() = default;
+    virtual ~GameObject() = default;
 
     virtual void Render();
     virtual void Clean();
@@ -48,14 +48,14 @@ private:
     Vector2 velocity_{};
     Vector2 acceleration_{};
     Rectangle bounding_box_{};
-    float rotation_;
+    float rotation_ = 0.0f;
 
     int width_;
     int height_;
     int items_per_row_;
     int num_frames_;
-    int current_frame_;
-    int frame_count_;
+    int current_frame_ = 0;
+    int frame_count_ = 0;
     int dest_height_;
     int dest_width_;
     int animation_speed_;

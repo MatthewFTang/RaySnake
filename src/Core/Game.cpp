@@ -21,7 +21,8 @@ Game::Game() {
 
 void Game::Clean() {
     TextureManger::Instance()->CleanAll();
-};
+    SoundManger::Instance()->Clean();
+}
 void Game::Render() {
     if (menu_) {
         menu_->Render();

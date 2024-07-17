@@ -20,9 +20,8 @@ private:
     int num_options_ = (int) options_.size();
 
     Game &game_;
-    int current_selection_;
+    int current_selection_ = 0;
     double last_press_time_ = 0.0;
-    std::string image_id_;
-
+    std::string image_id_ = "mainMenu";
     static int PositiveModulo(int i, int n);
 };

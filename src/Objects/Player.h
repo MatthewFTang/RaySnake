@@ -11,6 +11,8 @@
 
 class Player : public GameObject {
 public:
+    using GameObject::GameObject;
+    
     explicit Player(const LoaderParams& params) : GameObject(params){};
     std::string GetGameObjectType() override { return "player"; }
     void Update() override;

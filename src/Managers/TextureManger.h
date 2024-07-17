@@ -40,5 +40,5 @@ public:
 private:
     TextureManger() = default;
 
-    std::map<std::string, Texture2D> texture_map_;
+    std::unordered_map<std::string, Texture2D> texture_map_;
 };

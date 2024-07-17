@@ -16,5 +16,6 @@ public:
 
 private:
     Game &game_;
-    std::string texture_id_;
+    std::string texture_id_= "aboutMenu";
+
 };

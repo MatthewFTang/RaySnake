@@ -13,25 +13,23 @@ void GameObject::Render() {
 void GameObject::Clean() {
     TextureManger::Instance()->DeleteTexture(texture_id_);
 }
-GameObject::GameObject(LoaderParams const &params) {
-    position_ = {(float) params.GetX(), (float) params.GetY()};
-    velocity_ = {0.0f, 0.0f};
-    acceleration_ = {0.0f, 0.0f};
-    texture_id_ = params.GetTextureId();
-    frame_count_ = 0;
-    width_ = params.GetWidth();
-    height_ = params.GetHeight();
-    num_frames_ = params.GetNumFrames();
-    dest_height_ = params.GetDestHeight();
-    dest_width_ = params.GetDestWidth();
-    animation_speed_ = params.GetAnimateSpeed();
-    current_frame_ = 0;
-    items_per_row_ = params.GetItemsPerRow();
-    rotation_ = 0.0f;
-    bounding_box_.height = (float) dest_height_;
-    bounding_box_.width = (float) dest_width_;
+GameObject::GameObject(LoaderParams const &params)
+    : position_({static_cast<float>(params.GetX()), static_cast<float>(params.GetY())}),
+      velocity_({0.0f, 0.0f}),
+      acceleration_({0.0f, 0.0f}),
+      width_(params.GetWidth()),
+      height_(params.GetHeight()),
+      items_per_row_(params.GetItemsPerRow()),
+      num_frames_(params.GetNumFrames()),
+      dest_height_(params.GetDestHeight()),
+      dest_width_(params.GetDestWidth()),
+      animation_speed_(params.GetAnimateSpeed()),
+      texture_id_(params.GetTextureId()) {
+    bounding_box_.height = static_cast<float>(dest_height_);
+    bounding_box_.width = static_cast<float>(dest_width_);
     TextureManger::Instance()->LoadText(params.GetFilePath(), texture_id_);
 }
+
 
 Rectangle GameObject::GetBoundingBox() {
     bounding_box_.x = position_.x;

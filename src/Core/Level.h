@@ -22,7 +22,7 @@ public:
     ~Level() = default;
     void Render();
     void Update();
-    void Clean();
+
 
     void Reset();
 
@@ -54,5 +54,4 @@ private:
     GameDifficulty difficulty_;
 
     int score_;
-    Sound eat_sound_{};
 };
