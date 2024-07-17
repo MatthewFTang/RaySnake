@@ -28,18 +28,12 @@ void MainMenu::Render() {
     }
 }
 void MainMenu::Update() {
-    if (key_up_) {
+    if (GetTime() - last_press_time_ > 0.1) {
         if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) {
-            last_key_ = KEY_DOWN;
-            key_up_ = false;
-
             current_selection_++;
-        }
-
-        else if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) {
-            last_key_ = KEY_UP;
-            key_up_ = false;
-
+            last_press_time_ = GetTime();
+        } else if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) {
+            last_press_time_ = GetTime();
             current_selection_--;
         } else if (IsKeyDown(KEY_ENTER)) {
             if (current_selection_ == 0) {
@@ -49,10 +43,6 @@ void MainMenu::Update() {
             } else if (current_selection_ == 2) {
                 game_.Quit();
             }
-        }
-    } else {
-        if (IsKeyReleased(last_key_)) {
-            key_up_ = true;
         }
     }
 

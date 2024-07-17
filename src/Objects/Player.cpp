@@ -14,20 +14,20 @@
 void Player::Update() {
 
 
-    if (IsKeyDown(KEY_S)) {
+    if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) {
         pos_accum_.y += 1.0f;
         input_this_frame_ = true;
     }
 
-    if (IsKeyDown(KEY_W)) {
+    if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) {
         pos_accum_.y -= 1.0f;
         input_this_frame_ = true;
     }
-    if (IsKeyDown(KEY_A)) {
+    if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) {
         pos_accum_.x -= 1.0f;
         input_this_frame_ = true;
     }
-    if (IsKeyDown(KEY_D)) {
+    if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) {
         pos_accum_.x += 1.0f;
         input_this_frame_ = true;
     }

@@ -13,7 +13,7 @@
 Game::Game() {
 
     SetMenu<MainMenu>();
-    SoundManger::Instance()->LoadMusic("src/resources/audio/instrumental.mp3", "background_music");
+    SoundManger::Instance()->LoadMusic("src/resources/audio/Instrumental.mp3", "background_music");
     SoundManger::Instance()->LoadMusic("src/resources/audio/Theme1.mp3", "theme_music");
     SoundManger::Instance()->Play("theme_music");
 }
@@ -56,5 +56,5 @@ void Game::Play() {
     SoundManger::Instance()->Play("background_music");
 }
 void Game::NewGame(GameDifficulty difficulty) {
-    level_=std::make_unique<Level>(difficulty);
+    level_ = std::make_unique<Level>(difficulty);
 }

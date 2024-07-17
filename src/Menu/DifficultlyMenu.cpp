@@ -1,4 +1,4 @@
-#pragma once
+
 
 #include "DifficultlyMenu.h"
 
@@ -21,36 +21,27 @@ void DifficultlyMenu::Render() {
     }
 }
 void DifficultlyMenu::Update() {
-
-    if (GetTime() - start_time_ < 0.2) {
-        return;
-    }
-    if (key_up_) {
-        if (IsKeyDown(KEY_DOWN)) {
-            last_key_ = KEY_DOWN;
-            key_up_ = false;
-            current_selection_++;
-        }
-
-        else if (IsKeyDown(KEY_UP)) {
-            last_key_ = KEY_UP;
-            key_up_ = false;
-            current_selection_--;
-        } else if (IsKeyDown(KEY_ENTER)) {
-            GameDifficulty difficulty;
-            if (current_selection_ == 0) {
-                difficulty = GameDifficulty::EASY;
-            } else if (current_selection_ == 1) {
-                difficulty = GameDifficulty::MEDIUM;
-            } else {
-                difficulty = GameDifficulty::HARD;
+    double current_time = GetTime();
+    if ((current_time - start_time_ > 0.1) && (current_time - last_key_press_time_ > 0.1)) {
+        if (GetTime() - last_key_press_time_ > 0.1) {
+            if (IsKeyDown(KEY_DOWN)) {
+                last_key_press_time_ = GetTime();
+                current_selection_++;
+            } else if (IsKeyDown(KEY_UP)) {
+                last_key_press_time_ = GetTime();
+                current_selection_--;
+            } else if (IsKeyDown(KEY_ENTER)) {
+                GameDifficulty difficulty;
+                if (current_selection_ == 0) {
+                    difficulty = GameDifficulty::EASY;
+                } else if (current_selection_ == 1) {
+                    difficulty = GameDifficulty::MEDIUM;
+                } else {
+                    difficulty = GameDifficulty::HARD;
+                }
+                game_.NewGame(difficulty);
+                game_.Play();
             }
-            game_.NewGame(difficulty);
-            game_.Play();
-        }
-    } else {
-        if (IsKeyReleased(last_key_)) {
-            key_up_ = true;
         }
     }
 
@@ -63,7 +54,6 @@ int DifficultlyMenu::PositiveModulo(int i, int n) {
 DifficultlyMenu::DifficultlyMenu(Game &game) : game_(game) {
 
     current_selection_ = 0;
-    key_up_ = true;
-    last_key_ = KEY_DOWN;
+
     start_time_ = GetTime();
 }

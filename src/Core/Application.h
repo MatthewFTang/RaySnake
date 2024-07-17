@@ -45,7 +45,7 @@ private:
     Color background_color_ = {
             249,
             123,
-            154,
+            54,
     };
 
     std::unique_ptr<Game> game_;

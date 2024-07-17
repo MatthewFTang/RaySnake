@@ -20,9 +20,8 @@ private:
     int num_options_ = (int) options_.size();
 
     Game &game_;
-    KeyboardKey last_key_;
     int current_selection_;
-    bool key_up_ = true;
+    double last_press_time_ = 0.0;
     std::string image_id_;
 
     static int PositiveModulo(int i, int n);
