@@ -1,6 +1,6 @@
 # RaySnake
 
-## A simple snake game written written in C++ using the Raylib library.
+## A simple snake game written  in C++ using the Raylib library.
 
 ### How to play:
 
